@@ -13,9 +13,11 @@ const SignUpForm = () => {
     username: '',
     password: '',
     passwordConf: '',
+    email: '',
+    isProfessional: '',
   });
 
-  const { username, password, passwordConf } = formData;
+  const { username, email, password, passwordConf, } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
@@ -34,7 +36,7 @@ const SignUpForm = () => {
   };
 
   const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
+    return !(username && email && password && password === passwordConf);
   };
 
   return (
@@ -49,6 +51,17 @@ const SignUpForm = () => {
             id='name'
             value={username}
             name='username'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor='email'>Email:</label>
+          <input
+            type='text'
+            id='email'
+            value={email}
+            name='email'
             onChange={handleChange}
             required
           />
@@ -74,6 +87,10 @@ const SignUpForm = () => {
             onChange={handleChange}
             required
           />
+        </div>
+        <div class="checkbox-div">
+          <label for="isProfessional">Professional?</label>
+          <input type="checkbox" name="isProfessional" id="isProfessional" />
         </div>
         <div>
           <button disabled={isFormInvalid()}>Sign Up</button>
