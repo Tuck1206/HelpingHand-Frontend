@@ -14,4 +14,7 @@ const ProfessionalProvider = ({ children }) => {
   return <ProfessionalContext.Provider value={{ professional, setProfessional }}>{children}</ProfessionalContext.Provider>;
 };
 
-export { ProfessionalContext, ProfessionalProvider };
+export {
+     ProfessionalContext,
+      ProfessionalProvider 
+    };

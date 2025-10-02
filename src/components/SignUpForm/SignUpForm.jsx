@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { signUp } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
+const BASE = `${import.meta.env.VITE_BACK_END_SERVER_URL}/auth/sign-up`;
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const SignUp = () => {
       <h2 className="text-xl font-bold mb-3">Sign Up</h2>
       <form
         onSubmit={onSubmit} className="space-y-3">
-        <input name="username"
+        <input name="name"
           placeholder="Username"
           className="input"
           onChange={onChange}

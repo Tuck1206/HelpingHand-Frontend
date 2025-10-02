@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate} from 'react-router-dom';
 import { signOut } from '../../services/authService';
 
-
 const Navbar = () => {
+  const navigate= useNavigate()
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
 
@@ -12,11 +12,11 @@ const Navbar = () => {
   };
 
   return (
-    <header className>
+    <header className=''>
       <div>
-        <Link to="/" className>HandyHelp</Link>
+        <Link to="/" className=''>HandyHelp</Link>
       </div>
-      <nav className>
+      <nav className=''>
         {!token && <>
           <Link to="/sign-in">Sign In</Link>
           <Link to="/sign-up">Sign Up</Link>

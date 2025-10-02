@@ -28,11 +28,13 @@ const signUp = async (form) => {
 };
 
 const signIn = async (form) => {
+  console.log(form)
   const res = await fetch(`${BASE}/sign-in`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(form),
   });
+  console.log(res)
   const data = await res.json();
   if (data.token) {
     localStorage.setItem('token', data.token);

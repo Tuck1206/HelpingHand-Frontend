@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getProfessional } from '../../services/professionalService';
+import  getProfessional  from '../../services/professionalService';
 import { useParams } from 'react-router';
 
 const ProfessionalProfile = () => {

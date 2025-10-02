@@ -2,11 +2,11 @@ import React from 'react';
 import TaskForm from '../Tasks/TaskForm';
 import TaskList from '../Tasks/TaskList';
 
-export default function UserDashboard() {
+const UserDashboard=()=> {
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Your Dashboard</h1>
-      <div className="grid md:grid-cols-2 gap-6">
+      <h1>Your Dashboard</h1>
+      <div>
         <div>
           <TaskForm />
         </div>
@@ -19,11 +19,15 @@ export default function UserDashboard() {
 }
 
 
-export default function ProDashboard() {
+const ProDashboard=()=> {
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Professional Dashboard</h1>
+      <h1>Professional Dashboard</h1>
       <TaskList role="professional" />
     </div>
   );
-}
+};
+export {
+  UserDashboard,
+  ProDashboard,
+};
