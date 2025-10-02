@@ -1,58 +1,66 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/auth`;
+const BASE = `${import.meta.env.VITE_BACK_END_SERVER_URL}/auth`;
 
-const signUp = async (formData) => {
+const _parseTokenPayload = (token) => {
   try {
-    const res = await fetch(`${BASE_URL}/sign-up`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-
-    if (data.err) {
-      throw new Error(data.err);
-    }
-
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      return JSON.parse(atob(data.token.split('.')[1])).payload;
-    }
-
-    throw new Error('Invalid response from server');
-  } catch (err) {
-    console.log(err);
-    throw new Error(err);
+    return JSON.parse(atob(token.split('.')[1])).payload || JSON.parse(atob(token.split('.')[1]));
+  } catch {
+    return null;
   }
 };
 
-const signIn = async (formData) => {
-  try {
-    const res = await fetch(`${BASE_URL}/sign-in`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-
-    if (data.err) {
-      throw new Error(data.err);
+const signUp = async (form) => {
+  const res = await fetch(`${BASE}/sign-up`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(form),
+  });
+  const data = await res.json();
+  if (data.token) {
+    localStorage.setItem('token', data.token);
+    const payload = _parseTokenPayload(data.token);
+    if (payload) {
+      localStorage.setItem('userId', payload._id || payload.id);
+      localStorage.setItem('role', payload.isProfessional ? 'professional' : 'user');
     }
-
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      return JSON.parse(atob(data.token.split('.')[1])).payload;
-    }
-
-    throw new Error('Invalid response from server');
-  } catch (err) {
-    console.log(err);
-    throw new Error(err);
+    return payload;
   }
+  throw new Error(data.err || 'Sign up failed');
+};
+
+const signIn = async (form) => {
+  const res = await fetch(`${BASE}/sign-in`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(form),
+  });
+  const data = await res.json();
+  if (data.token) {
+    localStorage.setItem('token', data.token);
+    const payload = _parseTokenPayload(data.token);
+    if (payload) {
+      localStorage.setItem('userId', payload._id || payload.id);
+      localStorage.setItem('role', payload.isProfessional ? 'professional' : 'user');
+    }
+    return payload;
+  }
+  throw new Error(data.err || 'Sign in failed');
+};
+
+const signOut = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userId');
+  localStorage.removeItem('role');
+};
+
+const getUserFromToken = () => {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+  return _parseTokenPayload(token);
 };
 
 export {
   signUp,
   signIn,
+  getUserFromToken,
+  signOut
 };

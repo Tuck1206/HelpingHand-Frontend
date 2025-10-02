@@ -1,104 +1,63 @@
-import { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
-
 import { signUp } from '../../services/authService';
-
 import { UserContext } from '../../contexts/UserContext';
 
-const SignUpForm = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
-  const [message, setMessage] = useState('');
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    passwordConf: '',
-    email: '',
-    isProfessional: '',
-  });
+  const [form, setForm] = useState({ username: '', email: '', password: '', isProfessional: false });
+  const [loading, setLoading] = useState(false);
 
-  const { username, email, password, passwordConf, } = formData;
-
-  const handleChange = (evt) => {
-    setMessage('');
-    setFormData({ ...formData, [evt.target.name]: evt.target.value });
+  const onChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     try {
-      const newUser = await signUp(formData);
-      setUser(newUser);
-      navigate('/');
-    } catch (err) {
-      setMessage(err.message);
-    }
-  };
-
-  const isFormInvalid = () => {
-    return !(username && email && password && password === passwordConf);
+      const payload = await signUp(form);
+      setUser(payload);
+      if (payload.isProfessional) navigate('/pro'); else navigate('/user');
+    } catch (err) { alert(err.message || 'Sign up failed'); }
+    finally { setLoading(false); }
   };
 
   return (
-    <main>
-      <h1>Sign Up</h1>
-      <p>{message}</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='username'>Username:</label>
-          <input
-            type='text'
-            id='name'
-            value={username}
-            name='username'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='email'>Email:</label>
-          <input
-            type='text'
-            id='email'
-            value={email}
-            name='email'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='password'
-            id='password'
-            value={password}
-            name='password'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='confirm'>Confirm Password:</label>
-          <input
-            type='password'
-            id='confirm'
-            value={passwordConf}
-            name='passwordConf'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div class="checkbox-div">
-          <label for="isProfessional">Professional?</label>
-          <input type="checkbox" name="isProfessional" id="isProfessional" />
-        </div>
-        <div>
-          <button disabled={isFormInvalid()}>Sign Up</button>
-          <button onClick={() => navigate('/')}>Cancel</button>
+    <div className="max-w-md mx-auto card">
+      <h2 className="text-xl font-bold mb-3">Sign Up</h2>
+      <form
+        onSubmit={onSubmit} className="space-y-3">
+        <input name="username"
+          placeholder="Username"
+          className="input"
+          onChange={onChange}
+        />
+        <input name="email"
+          placeholder="Email"
+          className="input"
+          onChange={onChange}
+        />
+        <input name="password"
+          type="password"
+          placeholder="Password"
+          className="input"
+          onChange={onChange}
+        />
+        <label className="flex items-center gap-2">
+          <input name="isProfessional"
+            type="checkbox"
+            onChange={onChange}
+          /> Sign up as Professional
+        </label>
+        <div className="flex gap-2">
+          <button className="btn" type="submit" disabled={loading}>{loading ? 'Creating...' : 'Create account'}</button>
         </div>
       </form>
-    </main>
+    </div>
   );
 };
 
-export default SignUpForm;
+export default SignUp;

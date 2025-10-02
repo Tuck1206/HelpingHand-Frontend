@@ -1,25 +1,16 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import { getUserFromToken } from '../services/authService';
 
-const UserContext = createContext();
+const UserContext = createContext(null);
 
-const getUserFromToken = () => {
-  const token = localStorage.getItem('token');
-
-  if (!token) return null;
-
-  return JSON.parse(atob(token.split('.')[1])).payload;
-};
-
-function UserProvider({ children }) {
+const UserProvider = ({ children }) => {
   const [user, setUser] = useState(getUserFromToken());
 
-  const value = { user, setUser };
+  useEffect(() => {
+    setUser(getUserFromToken());
+  }, []);
 
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };
 
-export { UserProvider, UserContext };
+export { UserContext, UserProvider };

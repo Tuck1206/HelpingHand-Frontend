@@ -1,43 +1,48 @@
-import { useContext } from 'react';
-import { Routes, Route } from 'react-router';
 
-import NavBar from './components/NavBar/NavBar';
-import SignUpForm from './components/SignUpForm/SignUpForm';
-import SignInForm from './components/SignInForm/SignInForm';
-import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
+import { Routes, Route } from 'react-router'
+import SignIn from './components/SignInForm/SignInForm';
+import SignUp from './components/SignUpForm/SignUpForm';
+import Navbar from './components/NavBar/NavBar';
+import TaskList from './components/Tasks/TaskList';
+import TaskForm from './components/Tasks/TaskForm';
+import TaskDetail from './components/Tasks/TaskDetails';
+import UserProfile from './components/profiles/UserProfile';
+import ProfessionalProfile from './components/profiles/ProfessionalProfile';
 
-import { UserContext } from './contexts/UserContext';
 
-const App=()=> {
-  return (
-    <>
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="p-6 max-w-5xl mx-auto">
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" replace />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+const App = () => (
+  <>
+   <Navbar />
+    <main className>
+      <Routes>
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
 
-          <Route path="/user/*" element={
-            <ProtectedRoute role="user">
-              <UserDashboard />
-            </ProtectedRoute>
-          } />
+        <Route path="/user/*" element={
+          
+            <div className>
+              <div className><TaskForm /></div>
+              <div className><TaskList role="user" /></div>
+            </div>
+          
+        } />
 
-          <Route path="/pro/*" element={
-            <ProtectedRoute role="professional">
-              <ProDashboard />
-            </ProtectedRoute>
-          } />
+        <Route path="/pro/*" element={
+     
+            <div>
+              <TaskList role="professional" />
+            </div>
+         
+        } />
 
-          <Route path="*" element={<div>Not found</div>} />
-        </Routes>
-      </main>
-    </div>
-    </>
-  );
-}
+        <Route path="/tasks/:id" element={<TaskDetail />} />
+        <Route path="/profiles/user/:id" element={<UserProfile />} />
+        <Route path="/profiles/pro/:id" element={<ProfessionalProfile />} />
+
+        <Route path="*" element={<SignIn />} />
+      </Routes>
+    </main>
+  </>
+);
 
 export default App;

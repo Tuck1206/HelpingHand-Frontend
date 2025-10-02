@@ -1,38 +1,29 @@
-import { useEffect, useState, useContext } from 'react';
+import React from 'react';
+import TaskForm from '../Tasks/TaskForm';
+import TaskList from '../Tasks/TaskList';
 
-import { UserContext } from '../../contexts/UserContext';
-
-import * as userService from '../../services/userService';
-
-const Dashboard = () => {
-  const { user } = useContext(UserContext);
-  const [ users, setUsers ] = useState([]);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const fetchedUsers = await userService.index();
-        setUsers(fetchedUsers);
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    if (user) fetchUsers();
-  }, [user]);
-
+export default function UserDashboard() {
   return (
-    <main>
-      <h1>Welcome, {user.username}</h1>
-      <p>
-        This is the dashboard page where you can see a list of all the users.
-      </p>
-      <ul>
-        {users.map(user => (
-          <li key={user._id}>{user.username}</li>
-        ))}
-      </ul>
-    </main>
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Your Dashboard</h1>
+      <div className="grid md:grid-cols-2 gap-6">
+        <div>
+          <TaskForm />
+        </div>
+        <div>
+          <TaskList role="user" />
+        </div>
+      </div>
+    </div>
   );
-};
+}
 
-export default Dashboard;
+
+export default function ProDashboard() {
+  return (
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Professional Dashboard</h1>
+      <TaskList role="professional" />
+    </div>
+  );
+}

@@ -1,33 +1,32 @@
-import { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { signOut } from '../../services/authService';
 
-import { UserContext } from '../../contexts/UserContext';
 
-const NavBar = () => {
-  const { user, setUser } = useContext(UserContext);
+const Navbar = () => {
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
 
-  const handleSignOut = () => {
-    localStorage.removeItem('token');
-    setUser(null);
+  const handleLogout = () => {
+    signOut();
+    navigate('/sign-in');
   };
 
   return (
-    <nav>
-      {user ? (
-        <ul>
-          <li>Welcome, {user.username}</li>
-          <li><Link to='/'>Dashboard</Link></li>
-          <li><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
-        </ul>
-      ) : (
-        <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/sign-in'>Sign In</Link></li>
-          <li><Link to='/sign-up'>Sign Up</Link></li>
-        </ul>
-      )}
-    </nav>
+    <header className>
+      <div>
+        <Link to="/" className>HandyHelp</Link>
+      </div>
+      <nav className>
+        {!token && <>
+          <Link to="/sign-in">Sign In</Link>
+          <Link to="/sign-up">Sign Up</Link>
+        </>}
+        {token && role === 'user' && <Link to="/user">Dashboard</Link>}
+        {token && role === 'professional' && <Link to="/pro">Pro Dashboard</Link>}
+        {token && <button onClick={handleLogout} className="btn">Logout</button>}
+      </nav>
+    </header>
   );
 };
 
-export default NavBar;
+export default Navbar;
