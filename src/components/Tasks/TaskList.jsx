@@ -16,6 +16,7 @@ const TaskList = ({ role }) => {
     } catch (err) { console.error(err); alert('Failed to load tasks'); }
     finally { setLoading(false); }
   };
+  console.log(tasks)
 
   useEffect(() => { load(); }, []);
 

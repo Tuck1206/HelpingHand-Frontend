@@ -12,7 +12,8 @@ const SignUp = () => {
 
   const onChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+    setForm ({ ...form, [name]: type === 'checkbox' ? checked : value });
+    console.log({ ...form, [name]: type === 'checkbox' ? checked : value })
   };
 
   const onSubmit = async (e) => {
@@ -21,6 +22,7 @@ const SignUp = () => {
     try {
       const payload = await signUp(form);
       setUser(payload);
+      console.log(payload)
       if (payload.isProfessional) navigate('/pro'); else navigate('/user');
     } catch (err) { alert(err.message || 'Sign up failed'); }
     finally { setLoading(false); }

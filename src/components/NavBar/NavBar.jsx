@@ -12,11 +12,11 @@ const Navbar = () => {
   };
 
   return (
-    <header className=''>
+    <header className='navbar'>
       <div>
-        <Link to="/" className=''>HandyHelp</Link>
+        <Link to="/" className='font-bold text-lg'>HelpingHand</Link>
       </div>
-      <nav className=''>
+      <div className='orange'>
         {!token && <>
           <Link to="/sign-in">Sign In</Link>
           <Link to="/sign-up">Sign Up</Link>
@@ -24,7 +24,7 @@ const Navbar = () => {
         {token && role === 'user' && <Link to="/user">Dashboard</Link>}
         {token && role === 'professional' && <Link to="/pro">Pro Dashboard</Link>}
         {token && <button onClick={handleLogout} className="btn">Logout</button>}
-      </nav>
+      </div>
     </header>
   );
 };

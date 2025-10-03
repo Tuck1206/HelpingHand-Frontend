@@ -52,6 +52,7 @@ const authHeaders = (json=true) => {
 };
 
  const sendOffer = async (taskId, offer) => {
+    console.log(offer)
   const res = await fetch(`${BASE}/${taskId}/offers`, {
     method: 'POST',
     headers: authHeaders(true),
