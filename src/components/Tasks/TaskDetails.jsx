@@ -43,7 +43,7 @@ const TaskDetail = ({ task: initial, onUpdated }) => {
         const res = await addComment(task._id, text);
         if (res.message) { alert('Comment added'); onUpdated?.(); } else alert('Failed to add comment');
     };
-
+console.log(task)
     return (
         <div className="card">
             {!editing ? (

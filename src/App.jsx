@@ -20,7 +20,7 @@ const App = () => {
   return (
   <>
    <Navbar />
-    <main className=''>
+    <main className='container mx-auto p-4'>
       <Routes>
         <Route path='/' element={user?.isProfessional ? <ProDashboard /> : (user?.isProfessional=== false)?<UserDashboard />:<Landing/> } />
         <Route path="/sign-in" element={<SignIn />} />
@@ -28,7 +28,7 @@ const App = () => {
 
         <Route path="/user/*" element={
           
-            <div className=''>
+            <div className='grid md:grid-cols-3 gap-6'>
               <div><TaskForm /></div>
               <div><TaskList role="user" /></div>
             </div>

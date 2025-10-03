@@ -2,67 +2,138 @@
 
 ## About
 
-This application is designed to connect users with technical or skilled professionals for task-
-based services such as fixing phones, repairing cars, computer troubleshooting, carpentry, 
-building work, and more. Users can post tasks, and professionals can offer their services in 
-response.
-📝 User Features
-Users must sign up and then sign in to access the platform.
-Once signed in, users can:
-oCreate tasks under any category.
-oAdd attachments (e.g. photos or documents) to provide context for their 
-tasks.
-View, edit, and comment only on tasks they have created.
-Receive offers from professionals and choose to accept or decline them.
-View professional profiles and ratings.
-View a list of completed tasks, with partial details of professionals' past 
-work.
-Leave a rating for professionals after a task is completed.
-📝 Professional Features
-Professionals must also sign up and sign in to access their dashboard.
-During sign-up, professionals must choose one or more categories of expertise.
-Once signed in, professionals can:
-View tasks only in their selected categories.
-Search and filter tasks by location, category, and task title.
-Comment on any tasks within their selected categories.
-Send price offers to users for relevant tasks.
-View user profiles and ratings before offering.
-Mark tasks as completed once work is finished.
-View a history of previously completed tasks.
-Optionally delete completed tasks from their own profile/task list.
-Leave a rating for users after task completion.
-📝 Authentication & Authorization
-Both users and professionals must register and authenticate to use the platform.
-Role-based access ensures:
-Users can only manage their own tasks.
-Professionals can only see and interact with tasks in their selected categories.
-📝 Shared Features
-Commenting System:
-Users can comment only on their own tasks.
-Professionals can comment on any tasks that fall under their selected 
-categories.
-Rating System:
-After task completion, both users and professionals can rate each other.
-Ratings are visible on user and professional profiles.
-Profile Viewing:
-Users and professionals can view each other’s public profiles, which include 
-basic info, ratings, and partial task history.
-Task History Visibility:
-Users can see a portion of the professional's past completed tasks.
-Professionals can see a portion of tasks created by users.
-📝  Planned Enhancements (Future Features)
-🔔 Notifications System
-Real-time alerts for task updates, new offers, comments, and status changes.
-🔔 Map Integration
-Location-based task display and filtering for professionals.
-🔔 Scheduling System
-Professionals can set their availability; users can select preferred time slots.
-⭐ Profile Rating Display
-Average ratings shown on user and professional profiles for credibility
+# HelpingHand
+![alt text](OIP.webp)
 
-This repo is a React JWT Auth template meant to be paired with a back-end app utilizing JWT tokens.
 
-## Getting started
+## 📌 About HelpingHand
+**HelpingHand** is a role-based task management platform designed to bridge the gap between everyday users and skilled professionals.  
+
+- **Users** can create tasks (with categories, locations, urgency, etc.), manage them, and accept offers from professionals.  
+- **Professionals** can view tasks in their expertise categories, send offers, comment, and mark tasks as complete once done.  
+
+This app was built to simulate a real-world **gig economy workflow**, where trust, transparency, and usability are crucial.
+
+---
+
+## 🚀 Getting Started
+
+### Live Demo
+🔗 [Deployed App](https://your-deployed-frontend-link.com)  
+
+### Planning Materials
+📂 [Wireframes, ERD, & User Stories] project/
+HelpiingHand-frontend/
+ ├─ src/
+ │   ├─ components/
+ │   │   ├─ DashBoard
+ |   |   |-DashBoard.jsx
+ |   |   |
+ |   |   |-Landing/ 
+ |   |   |-Landing.jsx
+ |   |   |
+ |   |   |-Nvabar/
+ |   |   |-Navbar.jsx
+ |   |   |
+ |   |   |-Profiles
+ |   |   |-professionalProfile.jsx
+ |   |   |-Userprofile.jsx
+ |   |   |
+ |   |   |-SignInForm
+ |   |   |─ SignIn.jsx
+ |   |   |
+ |   |   |-SignUpForm
+ |   |   |─ SignUp.jsx
+ |   |   |
+ │   │   ├─ tasks/
+ │   │   │   ├─ TaskList.jsx
+ │   │   │   ├─ TaskForm.jsx
+ │   │   │   ├─ TaskDetail.jsx
+ │   │   │   └─ OfferList.jsx
+ │   │
+ │   ├─ context/
+ │   │   ├─ UserContext.jsx
+ │   │   └─ ProfessionalContext.jsx
+ │   │
+ │   ├─ services/
+ │   │   ├─ authService.js
+ │   │   ├─ userService.js
+ │   │   ├─ professionalService.js
+ │   │   └─ taskService.js
+ │   │
+ │   ├─ App.jsx
+ │   ├─ main.jsx
+ │   └─ index.css
+ │
+ ├─ .env
+ ├─ package.json
+ └─ vite.config.js
+
+
+## 🚫 Access Control Rules
+
+- ❌ Professionals **cannot create** tasks.  
+- 👁️ Users **cannot see** others' tasks.  
+- ✏️ Tasks **cannot be edited or deleted** after an offer is accepted.  
+- ✅ Only the **accepted professional** can complete the task.  
+- 🔐 Only the **task owner** can accept or reject offers.  
+
+
+
+
+
+### Back-End Repository
+💻 [ HelpingHand API Repo] https://github.com/qudratullah-khurram/github-collaboration
+
+---
+
+## 🙏 Attributions
+- [React](https://react.dev/) for building the frontend  
+- [Express](https://expressjs.com/) & [Node.js](https://nodejs.org/) for the backend API  
+- [MongoDB](https://www.mongodb.com/) for database management  
+- [JWT](https://jwt.io/) for secure authentication  
+- [React Router](https://reactrouter.com/) for navigation  
+- [Tailwind CSS](https://tailwindcss.com/) (or custom CSS) for styling  
+- Icons: [Lucide](https://lucide.dev/)  
+
+---
+
+## 🛠️ Technologies Used
+- **Frontend:** React (Hooks, Context API), React Router, Axios  
+- **Backend:** Node.js, Express, MongoDB, JWT Authentication  
+- **Styling:** CSS3 / Tailwind (customized for dashboard look)  
+- **Authentication:** JWT with role-based access (User vs Professional)  
+- **Deployment:** (e.g., Vercel/Netlify for frontend, Render/Heroku for backend)  
+
+---
+
+## 📌 Core Features
+✅ User Sign Up & Login  
+✅ Professional Sign Up & Login  
+✅ Role-based Authentication (User vs Professional)  
+✅ User Creates Tasks (title, description, category, location, urgency)  
+✅ Professionals View Tasks in Their Categories  
+✅ Professionals Send Offers to Tasks  
+✅ Users Accept or Reject Offers  
+✅ Task Commenting  
+- Users: comment on their own tasks  
+- Professionals: comment in their categories  
+✅ Professionals Mark Tasks as Complete  
+✅ View Basic Profiles (User ↔ Professional)  
+
+---
+
+## 🔮 Next Steps (Planned Enhancements)
+- **Notification System** (real-time task updates, offers, and comments)  
+- **Map Integration** (location-based task search)  
+- **Scheduling & Availability** (professionals set working hours, users book slots)  
+- **Ratings & Reviews** (post-task feedback for both users and professionals)  
+- **Mobile App** (React Native for iOS & Android)  
+
+---
+
+💡 Built with teamwork, modern web technologies, and the vision to connect people who need help with those who can provide it.
+
 
 Fork and clone this repository to your local machine.
 
