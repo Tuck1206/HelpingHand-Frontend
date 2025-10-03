@@ -19,7 +19,7 @@ This app was built to simulate a real-world **gig economy workflow**, where trus
 ## 🚀 Getting Started
 
 ### Live Demo
-🔗 [Deployed App](https://your-deployed-frontend-link.com)  
+https://ahelpinghand.netlify.app/
 
 ### Planning Materials
 📂 [Wireframes, ERD, & User Stories] project/
